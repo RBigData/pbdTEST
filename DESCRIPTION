@@ -1,0 +1,12 @@
+Package: pbdTEST
+Title: Programming with Big Data -- Testing Framework
+Version: 0.1-0
+Depends: R (>= 2.14.0), 
+Enhances: pbdMPI
+ByteCompile: yes
+NeedsCompilation: No
+Authors@R: c(person("Drew", "Schmidt", role = c("aut", "cre"), email =
+        "wrathematics@gmail.com"))
+Description: A simple testing framework for pbd packages.
+License: BSD 2-Clause + file LICENSE
+Maintainer: Drew Schmidt <wrathematics@gmail.com>
