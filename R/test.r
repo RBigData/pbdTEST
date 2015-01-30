@@ -4,8 +4,13 @@ settings <- function(mpi=TRUE)
   {
     suppressPackageStartupMessages(library(pbdDMAT))
     init.grid()
-    catfun <- function(x) comm.cat(x, quiet=TRUE)
+    
+    printfun <- function(x) pbdMPI::comm.print(x, quiet=TRUE)
+    assign("printfun", printfun, envir=pbdTESTEnv)
+    
+    catfun <- function(x) pbdMPI::comm.cat(x, quiet=TRUE)
     assign("catfun", catfun, envir=pbdTESTEnv)
+    
     assign("allfun", pbdMPI::comm.all, envir=pbdTESTEnv)
     assign("stopfun", pbdMPI::comm.stop, envir=pbdTESTEnv)
   }
@@ -46,7 +51,7 @@ depthpadding <- function()
 }
 
 
-test <- function(name, expr, check.attributes=TRUE, time=FALSE)
+test <- function(name, expr, check.attributes=TRUE, time=FALSE, print.on.fail=FALSE)
 {
   getvars()
   catfun(paste0("\r", depthpadding(), "* ", name, ":  "))
@@ -66,7 +71,7 @@ test <- function(name, expr, check.attributes=TRUE, time=FALSE)
   assign("ntests", value=ntests+1L, envir=pbdTESTEnv)
   
   if (time)
-    catfun(paste0("\nMethod a:  ", .__ta, "\nMethod b:  ", .__tb, "\n"))
+    catfun(paste0("\nMethod a time:  ", .__ta, "\nMethod b time:  ", .__tb, "\n"))
   
   result <- all.equal(a, b, check.attributes=check.attributes)
   
@@ -74,6 +79,12 @@ test <- function(name, expr, check.attributes=TRUE, time=FALSE)
   {
     catfun("FAILED\n")
     assign("nerrors", value=nerrors+1L, envir=pbdTESTEnv)
+    
+    if (print.on.fail)
+    {
+      printfun(a)
+      printfun(b)
+    }
   }
   else
     catfun("Ok!")
