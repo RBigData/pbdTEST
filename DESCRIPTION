@@ -8,5 +8,5 @@ NeedsCompilation: no
 Authors@R: c(person("Drew", "Schmidt", role = c("aut", "cre"), email =
         "wrathematics@gmail.com"))
 Description: A simple testing framework for pbd packages.
-License: BSD 2-Clause + file LICENSE
+License: BSD 2-clause License + file LICENSE
 Maintainer: Drew Schmidt <schmidt@math.utk.edu>
