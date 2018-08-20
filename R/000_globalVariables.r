@@ -4,7 +4,15 @@
 ### ?globalVariables
 
 utils::globalVariables(
-  c("stopfun", "nerrors", "catfun", ".__ta", ".__tb", "a", "b", 
-  "printfun", "ntests"
-))
-
+  c(
+    "stopfun",
+    "nerrors",
+    "catfun",
+    ".__ta",
+    ".__tb",
+    "a",
+    "b", 
+    "printfun",
+    "ntests"
+  )
+)

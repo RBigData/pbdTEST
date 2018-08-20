@@ -38,8 +38,8 @@ collect <- function()
   else
   {
     punct <- punctuation(ntests)
-    spacepadcat("\r")
-    spacepadcat(paste0(" All ", ntests, " test", punct$plural, " passed!"))
+    # spacepadcat("\r")
+    spacepadcat(paste0("\rAll ", ntests, " test", punct$plural, " passed!"))
   }
   
   catfun("\n\n")
@@ -51,4 +51,3 @@ collect <- function()
   
   invisible()
 }
-

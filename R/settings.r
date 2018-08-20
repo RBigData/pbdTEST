@@ -1,15 +1,22 @@
-#' @exportx
-settings <- function(mpi=TRUE)
+#' @export
+settings = function(package)
 {
-  if (mpi)
+  if (package == "mpi" || package == "dmat" || package == "kazaam")
   {
-    suppressPackageStartupMessages(library(pbdDMAT))
-    init.grid()
+    if (package == "mpi")
+      suppressMessages(library(pbdMPI))
+    else if (package == "dmat")
+    {
+      suppressMessages(library(pbdDMAT))
+      init.grid()
+    }
+    else if (package == "kazaam")
+      suppressMessages(library(kazaam))
     
-    printfun <- function(x) pbdMPI::comm.print(x, quiet=TRUE)
+    printfun = function(x) pbdMPI::comm.print(x, quiet=TRUE)
     assign("printfun", printfun, envir=pbdTESTEnv)
     
-    catfun <- function(x) pbdMPI::comm.cat(x, quiet=TRUE)
+    catfun = function(x) pbdMPI::comm.cat(x, quiet=TRUE)
     assign("catfun", catfun, envir=pbdTESTEnv)
     
     assign("allfun", pbdMPI::comm.all, envir=pbdTESTEnv)
@@ -20,4 +27,3 @@ settings <- function(mpi=TRUE)
   
   invisible()
 }
-

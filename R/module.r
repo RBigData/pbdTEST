@@ -20,4 +20,3 @@ submodule <- function(submodule.name)
   
   invisible()
 }
-
