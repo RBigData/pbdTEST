@@ -11,16 +11,20 @@ test <- function(name, expr, check.attributes=TRUE, time=FALSE, print.on.fail=FA
   getvars()
   catfun(paste0("\r", depthpadding(), "* ", name, ":  "))
   
+  expr_text <- deparse(substitute(expr))
+  
   if (time)
   {
-    expr <- deparse(substitute(expr))
-    
-    expr[2] <- paste(".__ta <- system.time({", expr[2], "})[3]")
-    expr[3] <- paste(".__tb <- system.time({", expr[3], "})[3]")
-    
-    expr <- parse(text=expr)
+    expr_text[2] <- paste(".__ta <- system.time({a <-", expr_text[2], "})[3]")
+    expr_text[3] <- paste(".__tb <- system.time({b <-", expr_text[3], "})[3]")
+  }
+  else
+  {
+    expr_text[2] = paste("a <-", expr_text[2])
+    expr_text[3] = paste("b <-", expr_text[3])
   }
   
+  expr <- parse(text=expr_text)
   
   eval(expr, envir=parent.frame())
   assign("ntests", value=ntests+1L, envir=pbdTESTEnv)
@@ -37,8 +41,8 @@ test <- function(name, expr, check.attributes=TRUE, time=FALSE, print.on.fail=FA
     
     if (print.on.fail)
     {
-      printfun(a)
-      printfun(b)
+      printfun(.__ta)
+      printfun(.__tb)
     }
   }
   else
@@ -47,4 +51,3 @@ test <- function(name, expr, check.attributes=TRUE, time=FALSE, print.on.fail=FA
   Sys.sleep(0.2)
   invisible()
 }
-
