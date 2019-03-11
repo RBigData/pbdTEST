@@ -1,6 +1,6 @@
 Package: pbdTEST
 Title: Programming with Big Data -- Testing Framework
-Version: 0.1-0
+Version: 0.2-0
 Depends: R (>= 3.0.0)
 Enhances: pbdMPI
 ByteCompile: yes

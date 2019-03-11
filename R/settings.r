@@ -1,5 +1,5 @@
 #' @export
-settings = function(package)
+settings = function(package, version_min="0.2-0")
 {
   if (package == "mpi" || package == "dmat" || package == "kazaam")
   {
@@ -24,6 +24,10 @@ settings = function(package)
   }
   else
     assign("catfun", base::cat, envir=pbdTESTEnv)
+  
+  version_current = packageVersion("pbdTEST")
+  if (version_current < version_min)
+    pbdTESTEnv$stopfun("minimum pbdTEST version not met")
   
   invisible()
 }
